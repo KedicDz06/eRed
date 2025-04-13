@@ -1,0 +1,58 @@
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = () => {
+    if (username === "kedicdz" && password === "DKedic5") {
+      alert("Prijava uspešna kot ravnatelj");
+      // Preusmeritev na admin nadzorno ploščo
+    } else if (username === "ucitelj" && password === "geslo123") {
+      alert("Prijava uspešna kot učitelj");
+      // Preusmeritev na učiteljsko nadzorno ploščo
+    } else {
+      setError("Napačno uporabniško ime ali geslo");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-green-100">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-sm"
+      >
+        <Card className="rounded-2xl shadow-xl">
+          <CardContent className="p-6">
+            <h1 className="text-2xl font-bold text-center mb-4 text-green-700">
+              Prijava v eRedovalnico
+            </h1>
+            <Input
+              placeholder="Uporabniško ime"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="mb-3"
+            />
+            <Input
+              placeholder="Geslo"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mb-3"
+            />
+            {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+            <Button onClick={handleLogin} className="w-full bg-green-600 hover:bg-green-700">
+              Prijava
+            </Button>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </div>
+  );
+}
